@@ -9,23 +9,23 @@ pipeline {
         }
 
         stage('Build & Deploy') {
-    steps {
-        sh 'docker compose down --remove-orphans || true'
-        sh 'docker compose build'
-        sh 'docker compose up -d'
-          }
+            steps {
+                sh 'docker-compose down --remove-orphans || true'
+                sh 'docker-compose build'
+                sh 'docker-compose up -d'
+            }
         }
 
         stage('Verify') {
             steps {
-                sh 'docker compose ps'
+                sh 'docker-compose ps'
             }
         }
     }
 
     post {
         failure {
-            sh 'docker compose down || true'
+            sh 'docker-compose down || true'
         }
     }
 }
